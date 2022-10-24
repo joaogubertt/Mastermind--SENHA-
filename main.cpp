@@ -19,6 +19,7 @@ int main(){
 void Jogo(int tamanho, int tentativas, int arrayValores[])
 {
     int iguais = 0, controleTentativas = 0, controleTamanho, controleLugar = 0, controleQTD = 0;
+    bool pararJogo = 0;
     int *TentantivaResposta = new int [tentativas];
 
     do
@@ -49,9 +50,11 @@ void Jogo(int tamanho, int tentativas, int arrayValores[])
     }
 
 
-    while( controleTentativas < tentativas){
-        cout << "Tentativa " << controleTentativas <<  " de " << tentativas << " possíveis!" << endl;
+    do
+    {
+        cout << "Tentativa " << controleTentativas+1 <<  " de " << tentativas << " possíveis!" << endl;
         cout << "Aguardando os " << tamanho << " valores da tentativa: ";
+
         for(int i = 0 ; i < tamanho ; i++)
         {
             cout << "..." << endl;
@@ -59,45 +62,45 @@ void Jogo(int tamanho, int tentativas, int arrayValores[])
         }
 
         //LAÇOS E CONDIÇÕES PARA VERIFICAR A QUANTIDADE  NÚMEROS CORRETOS E NOS LOCAIS CORRETOS
+        controleTentativas += 1;
+            
         for(int i = 0 ; i < tamanho ; i++)
         {
             if(TentantivaResposta[i] == arrayValores[i])
                 controleLugar++;
             for (int j = 0 ; j< tamanho; j++)
             {
-            if(TentantivaResposta[i] == arrayValores[j])
-                controleQTD++;
+                if(TentantivaResposta[i] == arrayValores[j])
+                    controleQTD++;
+            }
+             if(controleTentativas == tentativas - 1 && controleQTD != 3)
+            {
+                cout << "Você perdeu! Os valores eram: ";
+                for (int i = 0 ; i < tamanho; i ++)
+                {
+                cout << arrayValores[i] << " ";
+                }
+            
+                pararJogo = true;
             }
         }
 
         cout << controleQTD << "(s) acertos de número" << endl;
         cout << controleLugar << "(s) No lugar correto" << endl;
 
-        controleTentativas += 1;
-
-        if(controleTentativas == tentativas){
-            cout << "Você perdeu! Os valores eram: ";
-            for (int i = 0 ; i < tamanho; i ++){
-                cout << arrayValores[i] << "\t";
-            }
+        if (controleLugar == tamanho)
+        {   
+            cout << endl << "Parabéns! Você venceu";
+            pararJogo = true;
         }
-
-        for(int i = 0 ; i < tamanho; i++)
-        {
-            if(TentantivaResposta[i] == arrayValores[i])
-                controleTamanho ++;
-            if(controleTamanho == tamanho - 1){
-                cout << endl << "Você Venceu com "<< tentativas - controleTentativas << " tentativas restando";
-                controleTentativas = tentativas;
-            }
+        else {
+            cout << endl << "Próxima tentativa" << endl;
         }
 
         delete[] TentantivaResposta;
         TentantivaResposta = NULL;
-    }
 
-    delete[] TentantivaResposta;
-    TentantivaResposta = NULL;
+    } while (!pararJogo);
 }
 
 void Menu(){
@@ -119,7 +122,7 @@ void Menu(){
     switch (escolha)
     {
     case 1:
-        Jogo(3, 1, facilValores);
+        Jogo(3, 8, facilValores);
         break;
 
     case 2:
