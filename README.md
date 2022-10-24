@@ -6,3 +6,4 @@ No modo Médio são 4 números com 10 tentativas;
 No modo Difícil são 5 números com 12 tentativas;
 
 Ainda no código implementarei a alocação dinâmica ao criar arrays do tamanho da senha.
+Erro acontece após o primeiro número da segunda tentativa (???)
