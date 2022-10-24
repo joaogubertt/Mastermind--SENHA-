@@ -18,6 +18,7 @@ int main(){
 
 void Jogo(int tamanho, int tentativas, int arrayValores[])
 {
+    //ZERAR OS CONTROLES DE QUANTIDADE E DE LUGAR DURANTE O LAÇO
     int iguais = 0, controleTentativas = 0, controleTamanho, controleLugar = 0, controleQTD = 0;
     bool pararJogo = 0;
     int *TentantivaResposta = new int [tentativas];
